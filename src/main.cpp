@@ -360,7 +360,7 @@ private:
                                 request->use_message_database_ = true;
                                 request->use_secret_chats_ = true;
                                 request->api_id_ = 23832878;
-                                request->api_hash_ = "a3d4845747b919a8cc3d171a29b7046b";
+                                request->api_hash_ = "*";
                                 request->system_language_code_ = "en";
                                 request->device_model_ = "Desktop";
                                 request->application_version_ = "1.0";
