@@ -70,7 +70,7 @@ public:
             }
             else{
                 std::cout << "Enter action [q] quit [u] check for updates and request results [c] show chats [m <chat_id> "
-                             "<text>] send message [me] show self [l] logout: "
+                             "<text>] send message [me] show self [l] logout:  [f]for message logs"
                           << std::endl;
                 std::string line;
                 std::getline(std::cin, line);
@@ -132,6 +132,45 @@ public:
                     send_message->input_message_content_ = std::move(message_content);
 
                     send_query(std::move(send_message), {});
+                }
+                else if (action == "f"){
+                    std::int64_t chat_id;
+                    std::cout<<"set chat id"<<std::endl;
+                    std::cin>>chat_id;
+                    std::cout << "Openning chat " <<chat_id << " " <<std::endl;
+                    
+                    auto getchatlog = td_api::make_object<td_api::getChatHistory>();
+                    getchatlog->chat_id_= chat_id;
+                    getchatlog->from_message_id_ = 0;
+                    getchatlog->offset_ = 0;
+                    getchatlog->limit_ = 20;
+                    getchatlog->only_local_ = false;
+                    
+                    send_query(std::move(getchatlog), [this](Object object)
+                    {
+                        if(object->get_id() == td_api::error::ID){
+                            auto error = td::move_tl_object_as<td_api::error>(object);
+                            std::cerr << "Failed to get chat history: " << error->message_ << std::endl;
+                            return;
+                        }
+                        
+                        auto messages_ptr = td::move_tl_object_as<td_api::messages>(object);
+                        for (auto &message : messages_ptr->messages_) {
+                        
+                            if(message == nullptr){continue;}
+                        
+                            td_api::downcast_call(*message->content_, overloaded(
+                        
+                                [](td_api::messageText &text_content) {
+                                std::cout << "Text: " << text_content.text_->text_ << std::endl;
+                                },
+                                [](auto &other) {
+                                    std::cout << "Non-text message: " << td_api::to_string(other) << std::endl;
+                                }
+                        
+                            ));
+                        }
+                    });
                 }
                 else if (action == "c")
                 {
@@ -269,6 +308,7 @@ private:
                              std::cout << "Receive message: [chat_id:" << chat_id << "] [from:" << sender_name << "] ["
                                        << text << "]" << std::endl;
                          },
+                         
                          [](auto &update) {}));
     }
 
@@ -282,74 +322,112 @@ private:
             }
         };
     }
+
+
+
   // Проверка авторизации
+  void on_authorization_state_ready() 
+  {
+    are_authorized_ = true;
+    std::cout << "Authorization is completed" << std::endl;
+  }
+
+  void authorization_state_logging_out()
+  {
+    are_authorized_ = false;
+    std::cout<< " Logging out " << std::endl;
+  }
+  void authorization_state_wait_phone_number()
+  {
+
+    std::cout << " Enter phone number: " << std::flush;
+    std::string phone_number;
+    std::cin >> phone_number;
+    send_query(
+        td_api::make_object<td_api::setAuthenticationPhoneNumber>(phone_number, nullptr),
+        create_authentication_query_handler());
+  
+   }
+  void authorization_state_closed()
+  {
+    are_authorized_ = false;
+    need_restart_ = true;
+    std::cout << "Terminated" << std::endl;
+  }
+  void authorization_state_wait_email_address(){
+    std::cout << " Enter email address: " << std::flush;
+    std::string email_address;
+    std::cin >> email_address;
+    send_query(td_api::make_object<td_api::setAuthenticationEmailAddress>(email_address),
+        create_authentication_query_handler());
+  }
+  void authorization_state_wait_email_code(){
+    std::cout << " Enter email authentication code: " << std::flush;
+    std::string code;
+    std::cin >> code;
+    send_query(td_api::make_object<td_api::checkAuthenticationEmailCode>(
+        td_api::make_object<td_api::emailAddressAuthenticationCode>(code)),
+            create_authentication_query_handler());
+  }
+  void authorization_state_wait_code()
+  {
+    std::cout << " Enter authentication code: " << std::flush;
+    std::string code;
+    std::cin >> code;
+    send_query(td_api::make_object<td_api::checkAuthenticationCode>(code),
+            create_authentication_query_handler());
+  }
+  void authorization_state_wait_registration(){
+    std::string first_name;
+    std::string last_name;
+    std::cout << "Enter your first name: " << std::flush;
+    std::cin >> first_name;
+    std::cout << "Enter your last name: " << std::flush;
+    std::cin >> last_name;
+    send_query(td_api::make_object<td_api::registerUser>(first_name, last_name, false),
+    create_authentication_query_handler());
+  }
+  void authorization_state_wait_password(){
+    std::cout << "Enter authentication password: " << std::flush;
+    std::string password;
+    std::getline(std::cin, password);
+    send_query(td_api::make_object<td_api::checkAuthenticationPassword>(password),
+    create_authentication_query_handler());
+  }
   void on_authorization_state_update() {
     authentication_query_id_++;
     td_api::downcast_call(*authorization_state_,
                           overloaded(
                               [this](td_api::authorizationStateReady &) {
-                                are_authorized_ = true;
-                                std::cout << "Authorization is completed" << std::endl;
+                               on_authorization_state_ready();
                               },
                               [this](td_api::authorizationStateLoggingOut &) {
-                                are_authorized_ = false;
-                                std::cout << "Logging out" << std::endl;
+                                authorization_state_logging_out();
                               },
                               [this](td_api::authorizationStateClosing &) { std::cout << "Closing" << std::endl; },
                               [this](td_api::authorizationStateClosed &) {
-                                are_authorized_ = false;
-                                need_restart_ = true;
-                                std::cout << "Terminated" << std::endl;
+                                authorization_state_closed();
                               },
                               [this](td_api::authorizationStateWaitPhoneNumber &) {
-                                std::cout << "Enter phone number: " << std::flush;
-                                std::string phone_number;
-                                std::cin >> phone_number;
-                                send_query(
-                                    td_api::make_object<td_api::setAuthenticationPhoneNumber>(phone_number, nullptr),
-                                    create_authentication_query_handler());
+                                authorization_state_wait_phone_number();
                               },
                               [this](td_api::authorizationStateWaitPremiumPurchase &) {
                                 std::cout << "Telegram Premium subscription is required" << std::endl;
                               },
                               [this](td_api::authorizationStateWaitEmailAddress &) {
-                                std::cout << "Enter email address: " << std::flush;
-                                std::string email_address;
-                                std::cin >> email_address;
-                                send_query(td_api::make_object<td_api::setAuthenticationEmailAddress>(email_address),
-                                           create_authentication_query_handler());
+                                authorization_state_wait_email_address();
                               },
                               [this](td_api::authorizationStateWaitEmailCode &) {
-                                std::cout << "Enter email authentication code: " << std::flush;
-                                std::string code;
-                                std::cin >> code;
-                                send_query(td_api::make_object<td_api::checkAuthenticationEmailCode>(
-                                               td_api::make_object<td_api::emailAddressAuthenticationCode>(code)),
-                                           create_authentication_query_handler());
+                                authorization_state_wait_email_code();
                               },
                               [this](td_api::authorizationStateWaitCode &) {
-                                std::cout << "Enter authentication code: " << std::flush;
-                                std::string code;
-                                std::cin >> code;
-                                send_query(td_api::make_object<td_api::checkAuthenticationCode>(code),
-                                           create_authentication_query_handler());
+                                authorization_state_wait_code();
                               },
                               [this](td_api::authorizationStateWaitRegistration &) {
-                                std::string first_name;
-                                std::string last_name;
-                                std::cout << "Enter your first name: " << std::flush;
-                                std::cin >> first_name;
-                                std::cout << "Enter your last name: " << std::flush;
-                                std::cin >> last_name;
-                                send_query(td_api::make_object<td_api::registerUser>(first_name, last_name, false),
-                                           create_authentication_query_handler());
+                                authorization_state_wait_registration();
                               },
                               [this](td_api::authorizationStateWaitPassword &) {
-                                std::cout << "Enter authentication password: " << std::flush;
-                                std::string password;
-                                std::getline(std::cin, password);
-                                send_query(td_api::make_object<td_api::checkAuthenticationPassword>(password),
-                                           create_authentication_query_handler());
+                                authorization_state_wait_password();
                               },
                               [this](td_api::authorizationStateWaitOtherDeviceConfirmation &state) {
                                 std::cout << "Confirm this login link on another device: " << state.link_ << std::endl;
@@ -359,7 +437,7 @@ private:
                                 request->database_directory_ = "tdlib";
                                 request->use_message_database_ = true;
                                 request->use_secret_chats_ = true;
-                                request->api_id_ = 23832878;
+                                request->api_id_ = *;
                                 request->api_hash_ = "*";
                                 request->system_language_code_ = "en";
                                 request->device_model_ = "Desktop";
