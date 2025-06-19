@@ -25,6 +25,7 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o: /home/guts/Projects/linux-cli/src/main.
   /usr/include/c++/14/bits/basic_string.tcc \
   /usr/include/c++/14/bits/char_traits.h \
   /usr/include/c++/14/bits/charconv.h \
+  /usr/include/c++/14/bits/chrono.h \
   /usr/include/c++/14/bits/concept_check.h \
   /usr/include/c++/14/bits/cpp_type_traits.h \
   /usr/include/c++/14/bits/cxxabi_forced.h \
@@ -55,6 +56,7 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o: /home/guts/Projects/linux-cli/src/main.
   /usr/include/c++/14/bits/node_handle.h \
   /usr/include/c++/14/bits/ostream.tcc \
   /usr/include/c++/14/bits/ostream_insert.h \
+  /usr/include/c++/14/bits/parse_numbers.h \
   /usr/include/c++/14/bits/postypes.h \
   /usr/include/c++/14/bits/predefined_ops.h \
   /usr/include/c++/14/bits/ptr_traits.h \
@@ -67,6 +69,7 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o: /home/guts/Projects/linux-cli/src/main.
   /usr/include/c++/14/bits/sstream.tcc \
   /usr/include/c++/14/bits/std_abs.h \
   /usr/include/c++/14/bits/std_function.h \
+  /usr/include/c++/14/bits/std_thread.h \
   /usr/include/c++/14/bits/stl_algobase.h \
   /usr/include/c++/14/bits/stl_bvector.h \
   /usr/include/c++/14/bits/stl_construct.h \
@@ -87,6 +90,7 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o: /home/guts/Projects/linux-cli/src/main.
   /usr/include/c++/14/bits/streambuf_iterator.h \
   /usr/include/c++/14/bits/string_view.tcc \
   /usr/include/c++/14/bits/stringfwd.h \
+  /usr/include/c++/14/bits/this_thread_sleep.h \
   /usr/include/c++/14/bits/unique_ptr.h \
   /usr/include/c++/14/bits/unordered_map.h \
   /usr/include/c++/14/bits/uses_allocator.h \
@@ -103,6 +107,7 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o: /home/guts/Projects/linux-cli/src/main.
   /usr/include/c++/14/cstdint \
   /usr/include/c++/14/cstdio \
   /usr/include/c++/14/cstdlib \
+  /usr/include/c++/14/ctime \
   /usr/include/c++/14/cwchar \
   /usr/include/c++/14/cwctype \
   /usr/include/c++/14/debug/assertions.h \
@@ -121,6 +126,7 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o: /home/guts/Projects/linux-cli/src/main.
   /usr/include/c++/14/iosfwd \
   /usr/include/c++/14/iostream \
   /usr/include/c++/14/istream \
+  /usr/include/c++/14/limits \
   /usr/include/c++/14/map \
   /usr/include/c++/14/memory \
   /usr/include/c++/14/new \
@@ -128,12 +134,14 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o: /home/guts/Projects/linux-cli/src/main.
   /usr/include/c++/14/pstl/execution_defs.h \
   /usr/include/c++/14/pstl/glue_memory_defs.h \
   /usr/include/c++/14/pstl/pstl_config.h \
+  /usr/include/c++/14/ratio \
   /usr/include/c++/14/sstream \
   /usr/include/c++/14/stdexcept \
   /usr/include/c++/14/streambuf \
   /usr/include/c++/14/string \
   /usr/include/c++/14/string_view \
   /usr/include/c++/14/system_error \
+  /usr/include/c++/14/thread \
   /usr/include/c++/14/tuple \
   /usr/include/c++/14/type_traits \
   /usr/include/c++/14/typeinfo \
@@ -332,27 +340,27 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 
 /usr/lib/x86_64-linux-gnu/crti.o:
 
-/usr/include/c++/14/pstl/pstl_config.h:
+/lib64/ld-linux-x86-64.so.2:
 
-/usr/local/lib/libtdjson.so.1.8.50:
-
-/usr/include/c++/14/new:
+/lib/i386-linux-gnu/libzstd.so.1:
 
 /usr/include/c++/14/iostream:
 
 /usr/include/c++/14/bits/requires_hosted.h:
 
+/usr/local/include/td/tl/TlObject.h:
+
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
+
+/lib/x86_64-linux-gnu/libm.so.6:
+
+/usr/include/c++/14/iosfwd:
+
 /usr/include/c++/14/bits/streambuf.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/types/time_t.h:
 
-/lib64/ld-linux-x86-64.so.2:
-
 /usr/include/c++/14/ext/type_traits.h:
-
-/usr/include/c++/14/ext/string_conversions.h:
-
-/usr/include/c++/14/ext/numeric_traits.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
@@ -360,13 +368,13 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 
 /usr/include/c++/14/debug/assertions.h:
 
+/usr/include/c++/14/ext/string_conversions.h:
+
+/usr/include/c++/14/ext/numeric_traits.h:
+
+/usr/include/c++/14/ctime:
+
 /usr/include/c++/14/cstddef:
-
-/usr/include/x86_64-linux-gnu/bits/endian.h:
-
-/usr/include/c++/14/ostream:
-
-/usr/include/c++/14/compare:
 
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
@@ -385,14 +393,6 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 /usr/lib/x86_64-linux-gnu/libssl.so:
 
 /usr/include/c++/14/bits/streambuf_iterator.h:
-
-/usr/include/c++/14/bits/basic_string.tcc:
-
-/usr/include/c++/14/bits/stl_vector.h:
-
-/usr/include/linux/stddef.h:
-
-/usr/include/c++/14/bits/stl_tempbuf.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
@@ -414,6 +414,12 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 
 /usr/include/asm-generic/errno-base.h:
 
+/usr/include/c++/14/bits/this_thread_sleep.h:
+
+/usr/include/c++/14/bits/invoke.h:
+
+/usr/include/c++/14/pstl/pstl_config.h:
+
 /usr/include/c++/14/bits/shared_ptr_base.h:
 
 /usr/include/c++/14/vector:
@@ -426,19 +432,11 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
 
-/usr/include/c++/14/bits/cxxabi_init_exception.h:
+/usr/include/c++/14/bits/refwrap.h:
 
-/usr/include/c++/14/string_view:
-
-/usr/include/c++/14/ext/atomicity.h:
-
-/usr/include/c++/14/map:
-
-/usr/include/c++/14/bits/functional_hash.h:
+/usr/include/c++/14/bits/range_access.h:
 
 /usr/include/c++/14/bits/cxxabi_forced.h:
-
-/usr/include/x86_64-linux-gnu/bits/sched.h:
 
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
 
@@ -458,6 +456,10 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 
 /usr/include/c++/14/pstl/glue_memory_defs.h:
 
+/usr/include/c++/14/bits/stl_vector.h:
+
+/usr/include/c++/14/bits/basic_string.tcc:
+
 /usr/include/c++/14/bits/nested_exception.h:
 
 /usr/include/c++/14/bits/stl_uninitialized.h:
@@ -468,7 +470,19 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
+/usr/include/c++/14/map:
+
+/usr/include/c++/14/ext/atomicity.h:
+
 /usr/include/c++/14/bits/allocator.h:
+
+/usr/include/c++/14/bits/cxxabi_init_exception.h:
+
+/usr/include/c++/14/string_view:
+
+/usr/include/c++/14/limits:
+
+/usr/include/c++/14/bits/functional_hash.h:
 
 /usr/include/c++/14/bits/allocated_ptr.h:
 
@@ -510,9 +524,17 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 
 /usr/include/c++/14/bits/hashtable.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so:
+/usr/local/lib/libtdjson.so.1.8.50:
 
-/usr/include/c++/14/bit:
+/usr/include/c++/14/new:
+
+/usr/include/c++/14/bits/stl_tempbuf.h:
+
+/usr/include/linux/stddef.h:
+
+/usr/local/include/td/telegram/td_api.hpp:
+
+/usr/include/c++/14/bits/stl_tree.h:
 
 /usr/include/c++/14/cstdint:
 
@@ -523,10 +545,6 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/stdint-least.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
-
-/usr/include/c++/14/memory:
-
-/usr/include/c++/14/bits/stl_function.h:
 
 /usr/include/c++/14/bits/predefined_ops.h:
 
@@ -560,6 +578,20 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
+/usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so:
+
+/usr/include/c++/14/bit:
+
+/usr/include/c++/14/bits/chrono.h:
+
+/usr/include/c++/14/bits/align.h:
+
+/usr/include/c++/14/bits/concept_check.h:
+
+/usr/include/c++/14/ext/aligned_buffer.h:
+
+/usr/include/c++/14/bits/ostream.tcc:
+
 /usr/include/c++/14/bits/locale_facets.h:
 
 /usr/include/c++/14/bits/basic_string.h:
@@ -585,8 +617,6 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 /usr/include/c++/14/bits/hashtable_policy.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
-
-/usr/include/c++/14/bits/invoke.h:
 
 /usr/include/c++/14/istream:
 
@@ -626,27 +656,11 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 
 /usr/include/stdio.h:
 
-/usr/include/c++/14/ext/aligned_buffer.h:
-
-/usr/include/c++/14/bits/align.h:
-
-/usr/include/c++/14/bits/concept_check.h:
-
-/usr/include/c++/14/bits/ostream.tcc:
-
 /usr/include/c++/14/bits/stl_construct.h:
 
 /usr/include/c++/14/bits/uses_allocator.h:
 
-/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
-
-/usr/local/include/td/tl/TlObject.h:
-
 /usr/include/c++/14/bits/sstream.tcc:
-
-/usr/include/c++/14/bits/stl_tree.h:
-
-/usr/local/include/td/telegram/td_api.hpp:
 
 /usr/include/c++/14/bits/localefwd.h:
 
@@ -660,15 +674,29 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 
 /usr/include/c++/14/bits/node_handle.h:
 
-/usr/include/c++/14/bits/range_access.h:
+/usr/include/c++/14/compare:
 
-/usr/include/c++/14/bits/refwrap.h:
+/usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/usr/include/c++/14/ostream:
+
+/usr/include/c++/14/bits/parse_numbers.h:
+
+/usr/include/c++/14/bits/stl_function.h:
+
+/usr/include/c++/14/memory:
+
+/usr/include/x86_64-linux-gnu/bits/sched.h:
+
+/usr/include/c++/14/ratio:
 
 /usr/include/c++/14/sstream:
 
 /lib/x86_64-linux-gnu/libzstd.so.1:
 
 /usr/include/c++/14/string:
+
+/usr/include/c++/14/thread:
 
 /usr/include/c++/14/tuple:
 
@@ -788,13 +816,13 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
-/usr/include/c++/14/pstl/execution_defs.h:
-
 /usr/include/asm-generic/types.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h:
 
 /usr/include/asm-generic/bitsperlong.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h:
+/usr/include/c++/14/pstl/execution_defs.h:
 
 /usr/include/c++/14/utility:
 
@@ -828,6 +856,8 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 
 /usr/include/x86_64-linux-gnu/c++/14/bits/c++config.h:
 
+/usr/include/c++/14/bits/std_thread.h:
+
 /usr/include/x86_64-linux-gnu/c++/14/bits/c++locale.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
@@ -855,9 +885,3 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o:
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h:
-
-/lib/i386-linux-gnu/libzstd.so.1:
-
-/usr/include/c++/14/iosfwd:
-
-/lib/x86_64-linux-gnu/libm.so.6:

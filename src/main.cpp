@@ -10,6 +10,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <thread>
 
 namespace detail
 {
@@ -69,7 +70,7 @@ public:
                 process_response(client_manager_->receive(10));
             }
             else{
-                std::cout << "Enter action [q] quit [u] check for updates and request results [c] show chats [m <chat_id> "
+                std::cout << "Enter action [q] quit [c] show chats [m <chat_id> "
                              "<text>] send message [me] show self [l] logout:  [f]for message logs"
                           << std::endl;
                 std::string line;
@@ -83,22 +84,6 @@ public:
                 if (action == "q")
                 {
                     return;
-                }
-                if (action == "u")
-                {
-                    std::cout << "Checking for updates..." << std::endl;
-                    while (true)
-                    {
-                        auto response = client_manager_->receive(0);
-                        if (response.object)
-                        {
-                            process_response(std::move(response));
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
                 }
                 else if (action == "close")
                 {
@@ -130,7 +115,6 @@ public:
                     message_content->text_ = td_api::make_object<td::td_api::formattedText>();
                     message_content->text_->text_ = std::move(text);
                     send_message->input_message_content_ = std::move(message_content);
-
                     send_query(std::move(send_message), {});
                 }
                 else if (action == "f"){
@@ -158,16 +142,27 @@ public:
                         for (auto &message : messages_ptr->messages_) {
                         
                             if(message == nullptr){continue;}
-                        
+                            td_api::int53 sender_id;
+                            auto sender_user = static_cast<td_api::messageSenderUser*>(message->sender_id_.get());
+                            sender_id = sender_user->user_id_;
                             td_api::downcast_call(*message->content_, overloaded(
-                        
-                                [](td_api::messageText &text_content) {
-                                std::cout << "Text: " << text_content.text_->text_ << std::endl;
+                                [&message](td_api::messageText &text_content) {
+
+                                    td_api::downcast_call(*message->sender_id_, overloaded(
+                                        [](td_api::messageSenderUser &user) {
+                                            std::cout << "From User: " << user.user_id_ << std::endl;
+                                        },
+                                        [](td_api::messageSenderChat &chat) {
+                                            std::cout << "From Chat: " << chat.chat_id_ << std::endl;
+                                        }
+                                    ));
+
+                                    std::cout << "Text: " << text_content.text_->text_ << std::endl;
                                 },
+
                                 [](auto &other) {
                                     std::cout << "Non-text message: " << td_api::to_string(other) << std::endl;
                                 }
-                        
                             ));
                         }
                     });
@@ -223,6 +218,8 @@ private:
             handlers_.emplace(query_id, std::move(handler));
         }
         client_manager_->send(client_id_, query_id, std::move(f));
+
+        autoupdate();
     }
 
     void process_response(td::ClientManager::Response response)
@@ -241,6 +238,23 @@ private:
         {
             it->second(std::move(response.object));
             handlers_.erase(it);
+        }
+    }
+
+    void autoupdate(){
+        std::cout << "Checking for updates..." << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+        while (true)
+        {
+            auto response = client_manager_->receive(0);
+            if (response.object)
+            {
+                process_response(std::move(response));
+            }
+            else
+            {
+                break;
+            }
         }
     }
 
@@ -437,8 +451,8 @@ private:
                                 request->database_directory_ = "tdlib";
                                 request->use_message_database_ = true;
                                 request->use_secret_chats_ = true;
-                                request->api_id_ = *;
-                                request->api_hash_ = "*";
+                                request->api_id_ = 23832878;
+                                request->api_hash_ = "a3d4845747b919a8cc3d171a29b7046b";
                                 request->system_language_code_ = "en";
                                 request->device_model_ = "Desktop";
                                 request->application_version_ = "1.0";

@@ -198,4 +198,9 @@ CMakeFiles/linux-cli.dir/src/main.cpp.o: \
  /usr/include/c++/14/bits/istream.tcc /usr/include/c++/14/map \
  /usr/include/c++/14/bits/stl_tree.h /usr/include/c++/14/bits/stl_map.h \
  /usr/include/c++/14/bits/stl_multimap.h /usr/include/c++/14/sstream \
- /usr/include/c++/14/bits/sstream.tcc
+ /usr/include/c++/14/bits/sstream.tcc /usr/include/c++/14/thread \
+ /usr/include/c++/14/bits/std_thread.h \
+ /usr/include/c++/14/bits/this_thread_sleep.h \
+ /usr/include/c++/14/bits/chrono.h /usr/include/c++/14/ratio \
+ /usr/include/c++/14/limits /usr/include/c++/14/ctime \
+ /usr/include/c++/14/bits/parse_numbers.h
