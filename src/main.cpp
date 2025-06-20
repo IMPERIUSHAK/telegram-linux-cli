@@ -33,7 +33,7 @@ namespace detail
         using overload<F>::operator();
         using overload<Fs...>::operator();
     };
-} // namespace detail
+}
 
 template <class... F>
 auto overloaded(F... f)
@@ -43,7 +43,7 @@ auto overloaded(F... f)
 
 namespace td_api = td::td_api;
 
-// создание объекта для взаимодействия с клиентом
+
 class TdBasic
 {
 public:
@@ -55,7 +55,7 @@ public:
         send_query(td_api::make_object<td_api::getOption>("version"), {});
     }
 
-    // взаимодейтсвие с интерфейсом
+    
     void loop()
     {
         while (true)
@@ -70,8 +70,8 @@ public:
             }
             else{
                 std::cout << "Enter action [q] quit [c] show chats [m <chat_id> "
-                             "<text>] send message [me] show self [l] logout:  [f]for message logs"
-                          << std::endl;
+                             "<text>] send message [me] show self [l] logout:  [f]show message logs(f <chat_id>)"
+                        << std::endl;
                 std::string line;
                 std::getline(std::cin, line);
                 std::istringstream ss(line);
@@ -143,7 +143,7 @@ public:
                         for (auto &message : messages_ptr->messages_) {
                         
                             if(message == nullptr){continue;}
-                            td_api::int53 sender_id;
+                            td_api::int64 sender_id;
                             
                             auto sender_user = static_cast<td_api::messageSenderUser*>(message->sender_id_.get());
                             sender_id = sender_user->user_id_;
@@ -279,7 +279,6 @@ private:
         }
         return it->second;
     }
-    // обработчик процессов
     void process_update(td_api::object_ptr<td_api::Object> update)
     {
         td_api::downcast_call(
@@ -341,7 +340,6 @@ private:
 
 
 
-  // Проверка авторизации
   void on_authorization_state_ready() 
   {
     are_authorized_ = true;
@@ -454,7 +452,7 @@ private:
                                 request->use_message_database_ = true;
                                 request->use_secret_chats_ = true;
                                 request->api_id_ = 23832878;
-                                request->api_hash_ = "a3d4845747b919a8cc3d171a29b7046b";
+                                request->api_hash_ = "*";
                                 request->system_language_code_ = "en";
                                 request->device_model_ = "Desktop";
                                 request->application_version_ = "1.0";
