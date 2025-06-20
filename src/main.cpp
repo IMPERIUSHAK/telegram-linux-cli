@@ -1,7 +1,6 @@
 #include <td/telegram/Client.h>
 #include <td/telegram/td_api.h>
 #include <td/telegram/td_api.hpp>
-
 #include <cstdint>
 #include <functional>
 #include <iostream>
@@ -119,8 +118,8 @@ public:
                 }
                 else if (action == "f"){
                     std::int64_t chat_id;
-                    std::cout<<"set chat id"<<std::endl;
-                    std::cin>>chat_id;
+                    ss >> chat_id;
+                    ss.get();
                     std::cout << "Openning chat " <<chat_id << " " <<std::endl;
                     
                     auto getchatlog = td_api::make_object<td_api::getChatHistory>();
@@ -139,31 +138,34 @@ public:
                         }
                         
                         auto messages_ptr = td::move_tl_object_as<td_api::messages>(object);
+                        int64_t xuser;
+                        std::string msg;
                         for (auto &message : messages_ptr->messages_) {
                         
                             if(message == nullptr){continue;}
                             td_api::int53 sender_id;
+                            
                             auto sender_user = static_cast<td_api::messageSenderUser*>(message->sender_id_.get());
                             sender_id = sender_user->user_id_;
                             td_api::downcast_call(*message->content_, overloaded(
-                                [&message](td_api::messageText &text_content) {
-
+                                [&message,&xuser,&msg](td_api::messageText &text_content) {
                                     td_api::downcast_call(*message->sender_id_, overloaded(
-                                        [](td_api::messageSenderUser &user) {
-                                            std::cout << "From User: " << user.user_id_ << std::endl;
+                                        [&xuser](td_api::messageSenderUser &user) {
+                                            //std::cout << "From User: " << user.user_id_ << std::endl;
+                                            xuser = std::move(user.user_id_); 
                                         },
                                         [](td_api::messageSenderChat &chat) {
-                                            std::cout << "From Chat: " << chat.chat_id_ << std::endl;
+                                            std::cout <<"From Chat: " << chat.chat_id_ << std::endl;
                                         }
                                     ));
 
-                                    std::cout << "Text: " << text_content.text_->text_ << std::endl;
+                                    msg = std::move(text_content.text_->text_);
                                 },
-
                                 [](auto &other) {
                                     std::cout << "Non-text message: " << td_api::to_string(other) << std::endl;
                                 }
                             ));
+                            std::cout<<chat_title_[xuser]<<": "<<msg<<std::endl;
                         }
                     });
                 }
